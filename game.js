@@ -86,13 +86,13 @@ function ballMove() {
     let dy = -4; 
 
     function updateBall() {
-        let ballX = My_ball.element.offsetLeft;
-        let ballY = My_ball.element.offsetTop;
+        let ballX = My_ball.element.offsetLeft; //  x  position of the ball
+        let ballY = My_ball.element.offsetTop; //  y  position of the ball
         let gameContainer = document.querySelector(".game-container");
 
         My_ball.element.style.left = `${ballX + dx}px`;
         My_ball.element.style.top = `${ballY + dy}px`;
-
+        // check  The ball  collision  with  the left and right wall
         if (ballX + dx <= 0 || ballX + dx >= gameContainer.offsetWidth - My_ball.element.offsetWidth) {
             dx = -dx; 
         }
@@ -100,16 +100,19 @@ function ballMove() {
         if (ballY + dy <= 0) {
             dy = -dy; 
         }
-
+        if (CheckTouchbricks()) {
+            dy = -dy;
+        }
+        // Check  the  ball  collision  with  the  paddle
         let paddle = document.querySelector(".paddle");
         if (ballY + dy >= paddle.offsetTop - My_ball.element.offsetHeight &&
             ballX >= paddle.offsetLeft &&
             ballX <= paddle.offsetLeft + paddle.offsetWidth) {
             dy = -dy; 
         }
-
+        /// Check  The ball  collision  with  the  bottom wall
         if (ballY + dy >= gameContainer.offsetHeight) {
-            alert("Game Over!");
+           
             return; 
         }
 
@@ -118,7 +121,28 @@ function ballMove() {
 
     requestAnimationFrame(updateBall);
 }
+function  CheckTouchbricks(){
 
+    for (let  i = 0;  i <  bricks.length;  i++) {
+        let  currentBrick = bricks[i];
+        let  ballX = My_ball.element.offsetLeft;
+        let  ballY = My_ball.element.offsetTop;
+        let  brickX = currentBrick.element.offsetLeft;
+        let  brickY = currentBrick.element.offsetTop;
+        let  brickWidth = currentBrick.element.offsetWidth;
+        let  brickHeight = currentBrick.element.offsetHeight;
+        // Check  the  ball  collision  with  the  brick
+        if (ballX >= brickX && ballX <= brickX + brickWidth &&
+            ballY >= brickY && ballY <= brickY + brickHeight) {
+            currentBrick.element.remove();
+            bricks.splice(i, 1);
+            return true 
+        }{
+            continue
+        }
+    }
+    return  false 
+}
 buildbricks();
 paddleMove()
 ballMove();
