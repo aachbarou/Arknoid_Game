@@ -1,46 +1,87 @@
-/* Reset default styles */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
 }
 
 body {
+    background: #0f172a; /* Dark blue background */
+    color: white;
     text-align: center;
-    background-color: #222;
-    min-height: 100vh;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    text-shadow: 0 0 10px cyan;
+    margin-bottom: 10px;
+}
+
+.Score {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 0;
-    font-family: Arial, sans-serif;
+    gap: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
+.Score p {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Game Container */
 .game-container {
-    width: 780px;
-    height: 600px;
     position: relative;
-    background-color: black;
-    border: 2px solid white;
-    margin: 0 auto;
+    width: 600px;
+    height: 400px;
+    background: #1e293b;
+    margin: auto;
+    border: 4px solid cyan;
+    box-shadow: 0 0 20px cyan;
     overflow: hidden;
+    border-radius: 10px;
 }
 
-.bricks {
-    position: relative;
-    width: 100%;
-    height: 120px;
-    /* Removed flex layout */
-}
-
+/* Bricks */
 .brick {
-    position: absolute; /* Keep absolute positioning */
     width: 50px;
     height: 20px;
-    background-color: rgb(236, 227, 227);
-    border-radius: 4px;
-    transition: opacity 0.3s ease;
+    margin: 5px;
+    background: linear-gradient(45deg, cyan, blue);
+    border-radius: 5px;
+    box-shadow: 0 0 10px cyan;
+    position: absolute;
 }
+
+/* Paddle */
+.paddle {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 100px;
+    height: 15px;
+    background: linear-gradient(90deg, cyan, blue);
+    border-radius: 5px;
+    box-shadow: 0 0 10px cyan;
+}
+
+/* Ball */
+.ball {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+}
+
+
 
 
 .paddle {
@@ -50,8 +91,7 @@ body {
     position: absolute;
     bottom: 10px;
     left: 50%;
-    transform: translateX(-50%);
-    border-radius: 7px;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
 }
 
@@ -62,68 +102,6 @@ body {
     position: absolute;
     bottom: 40px;
     left: 50%;
-    transform: translateX(-50%);
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(255, 235, 59, 0.6);
-}
-
-.vertical-line {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 2px;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateX(-50%);
-}
-
-.horizontal-line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%);
-}
-
-.dx {
-    position: absolute;
-    top: 50%;
-    left: 50px;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    transform: translateY(-50%);
-}
-
-.dy {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    transform: translateX(-50%);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-}
-
-/* Brick states */
-.brick.destroyed {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.brick.hit {
-    opacity: 0.5;
-}
-
-@media (max-width: 800px) {
-    .game-container {
-        width: 100%;
-        height: 100vh;
-        margin: 0;
-        border: none;
-    }
 }

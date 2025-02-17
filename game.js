@@ -106,13 +106,24 @@ function ballMove() {
         // Check  the  ball  collision  with  the  paddle
         let paddle = document.querySelector(".paddle");
         if (ballY + dy >= paddle.offsetTop - My_ball.element.offsetHeight &&
-            ballX >= paddle.offsetLeft &&
+            ballX + My_ball.element.offsetWidth >= paddle.offsetLeft &&
             ballX <= paddle.offsetLeft + paddle.offsetWidth) {
+            
             dy = -dy; 
+        
+            // حساب نسبة موقع الاصطدام على المضرب
+            let hitPoint = (ballX + My_ball.element.offsetWidth / 2 - paddle.offsetLeft) / paddle.offsetWidth;
+        
+            if (hitPoint < 0.3) { // اصطدام بالجانب الأيسر من المضرب
+                dx = -Math.abs(dx); // إجبار الكرة على الارتداد إلى اليسار
+            } else if (hitPoint > 0.7) { // اصطدام بالجانب الأيمن من المضرب
+                dx = Math.abs(dx); // إجبار الكرة على الارتداد إلى اليمين
+            }
         }
+        
         /// Check  The ball  collision  with  the  bottom wall
         if (ballY + dy >= gameContainer.offsetHeight) {
-           
+           alert("Game Over");
             return; 
         }
 
